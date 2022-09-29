@@ -18,7 +18,7 @@ def index():
 
 
 @app.route("/ping")
-def ping(request):
+def ping():
     ''' Just for testing something.'''
     return {}, 200
 
