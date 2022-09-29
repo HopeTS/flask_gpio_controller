@@ -1,8 +1,11 @@
 from flask import Flask, Response, abort, jsonify
+from flask_cors import CORS
+
 from gpio.GPIOController import GPIOController
 
 # Configure Flask server
 app = Flask(__name__)
+CORS(app)
 
 # Set up GPIO Controller
 gpio_controller = GPIOController()
