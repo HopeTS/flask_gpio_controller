@@ -1,4 +1,3 @@
-from msilib.schema import Error
 from flask import Flask, Response, abort, jsonify
 from gpio.GPIOController import GPIOController
 
@@ -16,6 +15,12 @@ def index():
     print("Hello world")
     gpio_controller.toggle_pin(32)
     return "<p>Hello world</p>"
+
+
+@app.route("/ping")
+def ping(request):
+    ''' Just for testing something.'''
+    return {}, 200
 
 
 @app.route("/get-pin-info")
