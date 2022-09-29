@@ -21,6 +21,7 @@ def index():
 
 
 @app.route("/ping")
+@cross_origin()
 def ping():
     ''' Just for testing something.'''
     return {}, 200
