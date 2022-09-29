@@ -1,5 +1,5 @@
 from flask import Flask, Response, abort, jsonify
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 
 from gpio.GPIOController import GPIOController
 
