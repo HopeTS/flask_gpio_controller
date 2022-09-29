@@ -12,22 +12,21 @@ gpio_controller = GPIOController()
 
 
 @app.route("/")
+@cross_origin()
 def index():
     ''' Home page '''
-
-    print("Hello world")
-    gpio_controller.toggle_pin(32)
-    return "<p>Hello world</p>"
+    return "<p>This is the server for Raspi 3 Model B GPIO controller</p>"
 
 
 @app.route("/ping")
 @cross_origin()
 def ping():
-    ''' Just for testing something.'''
+    ''' Test connection '''
     return {}, 200
 
 
 @app.route("/get-pin-info")
+@cross_origin()
 def get_pin_info():
     ''' Retrieve full state of GPIO '''
 
@@ -36,6 +35,7 @@ def get_pin_info():
 
 
 @app.route("/update-pin-voltage", methods=['POST'])
+@cross_origin()
 def update_pin_voltage(request):
     ''' Activate or deactivate a pin '''
 
