@@ -22,6 +22,9 @@ class GPIOPin:
             print("Pin", self.number, "is not GPIO")
         return
 
+    def __str__(self) -> str:
+        return "Pin", self.number
+
     def jsonify(self):
         '''
             Serialize pin data
