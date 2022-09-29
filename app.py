@@ -23,7 +23,7 @@ def index():
 @app.route("/ping")
 def ping():
     ''' Just for testing something.'''
-    return Response({}, status=200)
+    return {}, 200
 
 
 @app.route("/get-pin-info")
