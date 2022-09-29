@@ -5,7 +5,7 @@ from gpio.GPIOController import GPIOController
 
 # Configure Flask server
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 # Set up GPIO Controller
 gpio_controller = GPIOController()
