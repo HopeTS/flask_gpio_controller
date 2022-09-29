@@ -30,8 +30,13 @@ def ping():
 def get_pin_info():
     ''' Retrieve full state of GPIO '''
 
-    print("Returning this data", gpio_controller.pins)
-    return jsonify(gpio_controller.pins)
+    # get serialized pin data
+    pin_data = []
+
+    for i in range(len(gpio_controller.pins)):
+        pin_data.append(gpio_controller.pins[i].jsonify())
+
+    return jsonify(pin_data)
 
 
 @app.route("/update-pin-voltage", methods=['POST'])
