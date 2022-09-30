@@ -34,11 +34,13 @@ def get_pin_info():
     pin_data = []
 
     for i in range(len(gpio_controller.pins)):
-        pin = gpio_controller.pins[i].jsonify()
+        pin = {
+            "name": gpio_controller.pins[i].name
+        }
         print("JSONified pin data", pin)
         pin_data.append(pin)
 
-    return {}, 200
+    return pin_data, 200
 
 
 @app.route("/update-pin-voltage", methods=['POST'])
