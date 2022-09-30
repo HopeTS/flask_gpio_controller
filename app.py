@@ -38,7 +38,7 @@ def get_pin_info():
 
     print(pin_data)
 
-    return {pin_data: pin_data}, 200
+    return jsonify(pin_data)
 
 
 @app.route("/update-pin-voltage", methods=['POST'])
