@@ -5,27 +5,25 @@ from gpio.GPIOController import GPIOController
 
 # Configure Flask server
 app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 # Set up GPIO Controller
 gpio_controller = GPIOController()
 
 
 @app.route("/")
-@cross_origin()
 def index():
     ''' Home page '''
     return "<p>This is the server for Raspi 3 Model B GPIO controller</p>"
 
 
 @app.route("/ping")
-@cross_origin()
 def ping():
     ''' Test connection '''
     return {}, 200
 
 
 @app.route("/get-pin-info")
-@cross_origin()
 def get_pin_info():
     ''' Retrieve full state of GPIO '''
 
@@ -43,7 +41,6 @@ def get_pin_info():
 
 
 @app.route("/update-pin-voltage", methods=['POST'])
-@cross_origin()
 def update_pin_voltage(request):
     ''' Activate or deactivate a pin '''
 
