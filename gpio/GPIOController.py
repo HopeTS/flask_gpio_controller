@@ -1,4 +1,5 @@
-from xmlrpc.client import Boolean
+import json
+
 from gpio.GPIOPin import GPIOPin
 from gpio.utils.create_pins_dict import create_pins_dict
 from gpio.utils.setup_gpio import setup_gpio
@@ -15,7 +16,16 @@ class GPIOController:
 
         return
 
-    def toggle_pin(self, pin_number) -> Boolean:
+    def jsonify(self):
+        ''' 
+            Returns json data
+        '''
+        pin_data = []
+        for i in range(len(self.pins)):
+            pin_data.append(self.pins[i + 1].jsonify())
+        return json.dumps(pin_data)
+
+    def toggle_pin(self, pin_number) -> bool:
         '''
             Toggle a pin on the GPIO board
         '''

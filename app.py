@@ -28,16 +28,18 @@ def get_pin_info():
 
     print("Here is gpio controller pins", gpio_controller.pins)
 
-    """ # get serialized pin data
+    # get serialized pin data
     pin_data = []
 
     for i in range(len(gpio_controller.pins)):
         pin = {
-            "name": gpio_controller.pins[i].name
+            "name": gpio_controller.pins[i + 1].name
         }
-        pin_data.append(pin) """
+        pin_data.append(pin)
 
-    return {"object": "yes"}, 200
+    print("Here is pin data", pin_data)
+
+    return {"body": gpio_controller.jsonify()}, 200
 
 
 @app.route("/update-pin-voltage", methods=['POST'])
