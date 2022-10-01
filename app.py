@@ -7,9 +7,6 @@ from gpio.GPIOController import GPIOController
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
 
-# Set up GPIO Controller
-gpio_controller = GPIOController()
-
 
 @app.route("/")
 def index():
@@ -26,6 +23,8 @@ def ping():
 @app.route("/get-pin-info")
 def get_pin_info():
     ''' Retrieve full state of GPIO '''
+
+    global gpio_controller
 
     # get serialized pin data
     pin_data = []
@@ -67,4 +66,10 @@ def update_pin_voltage(request):
 
 
 if __name__ == "__main__":
+
+    # Set up GPIO Controller
+    global gpio_controller
+    gpio_controller = GPIOController()
+
+    # Run
     app.run(debug=True, host="0.0.0.0")
