@@ -26,12 +26,14 @@ def get_pin_info():
 
     global gpio_controller
 
+    print("Here is gpio controller pins", gpio_controller.pins)
+
     # get serialized pin data
     pin_data = []
 
     for i in range(len(gpio_controller.pins)):
         pin = {
-            name: gpio_controller.pins[i].name
+            "name": gpio_controller.pins[i].name
         }
         pin_data.append(pin)
 
