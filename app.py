@@ -37,7 +37,7 @@ def get_pin_info():
         }
         pin_data.append(pin) """
 
-    return pin_data, 200
+    return {"object": "yes"}, 200
 
 
 @app.route("/update-pin-voltage", methods=['POST'])
