@@ -31,9 +31,8 @@ def get_pin_info():
 
     for i in range(len(gpio_controller.pins)):
         pin = {
-            "name": gpio_controller.pins[i].name
+            name: gpio_controller.pins[i].name
         }
-        print("JSONified pin data", pin)
         pin_data.append(pin)
 
     return pin_data, 200
