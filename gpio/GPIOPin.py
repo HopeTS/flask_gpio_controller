@@ -7,14 +7,15 @@ class GPIOPin:
     '''
 
     def __init__(self, name: str, number: int):
-        self.name = name
+        self.name: str = "".join(name)
         ''' Pin NAME  (Refer to J8 header) '''
-        self.number = number,
-        ''' Pin NUMBER (Refer to J8 header) '''
         self.type = "GPIO"
         ''' Pin TYPE (Refer to J8 header) '''
         self.state = 0
         ''' Pin HIGH/LOW state '''
+        number: int = sum(number, 0),
+        self.number = number
+        ''' Pin NUMBER (Refer to J8 header) '''
 
         try:
             GPIO.setup(self.number, GPIO.OUT, initial=GPIO.LOW)
@@ -30,10 +31,8 @@ class GPIOPin:
             Serialize pin data
         '''
 
-        name = "".join(self.name)
-
         return {
-            "name": name,
+            "name": self.name,
             "number": self.number,
             "type": self.type,
             "state": self.state
