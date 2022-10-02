@@ -1,5 +1,7 @@
+from tokenize import Double
 from flask import Flask, Response, abort, jsonify
 from flask_cors import CORS, cross_origin
+from time import sleep
 
 from gpio.GPIOController import GPIOController
 
@@ -26,20 +28,47 @@ def get_pin_info():
 
     global gpio_controller
 
-    print("Here is gpio controller pins", gpio_controller.pins)
-
     # get serialized pin data
     pin_data = []
-
     for i in range(len(gpio_controller.pins)):
         pin = {
             "name": gpio_controller.pins[i + 1].name
         }
         pin_data.append(pin)
 
-    print("Here is pin data", pin_data)
-
     return jsonify({"body": gpio_controller.jsonify()})
+
+
+@app.route("/blink", methods=['POST'])
+def blink(request):
+    ''' Make pin blink '''
+
+    # Validate request
+    if not request.body:
+        return abort(400)
+    elif not request.body.pin:
+        return abort(400)
+
+    # Get values
+    pin = int(request.body.pin) or 32
+    duration = float(request.body.duration) or 2.0
+    interval = float(request.body.interval) or 0.1
+
+    # Blink
+    time_left = duration
+    while (time_left >= 0):
+        global gpio_controller
+        gpio_controller.toggle_pin(pin)
+        sleep(interval)
+        time_left -= interval
+
+    return {}, 200
+
+
+@app.route("/custom-loop", methods=['POST'])
+def custom_loop(request):
+    # TODO
+    return {}, 200
 
 
 @app.route("/update-pin-voltage", methods=['POST'])
@@ -56,9 +85,9 @@ def update_pin_voltage(request):
 
     # Activate / deactivate pin
     try:
-        if (request.body.state == 1):
+        if (request.body.state == "HIGH"):
             gpio_controller.pins[request.body.number].activate()
-        elif (request.body.state == 2):
+        elif (request.body.state == "LOW"):
             gpio_controller.pins[request.body.number].deactivate()
         else:
             raise

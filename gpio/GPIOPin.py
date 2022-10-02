@@ -6,10 +6,10 @@ class GPIOPin:
         Store data about a GPIO pin
     '''
 
-    def __init__(self, name: str, number: int):
+    def __init__(self, name: str, number: int, type: str):
         self.name: str = "".join(name)
         ''' Pin NAME  (Refer to J8 header) '''
-        self.type = "GPIO"
+        self.type: str = "".join(type)
         ''' Pin TYPE (Refer to J8 header) '''
         self.state = 0
         ''' Pin HIGH/LOW state '''
