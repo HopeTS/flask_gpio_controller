@@ -39,7 +39,7 @@ def get_pin_info():
 
     print("Here is pin data", pin_data)
 
-    return jsonify({"body": gpio_controller.jsonify()})
+    return jsonify({"data": gpio_controller.jsonify()})
 
 
 @app.route("/update-pin-voltage", methods=['POST'])

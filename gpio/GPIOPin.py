@@ -30,9 +30,12 @@ class GPIOPin:
             Serialize pin data
         '''
 
+        name = self.name.join()
+        number = self.number.join()
+
         return {
-            "name": self.name,
-            "number": self.number,
+            "name": name,
+            "number": number,
             "type": self.type,
             "state": self.state
         }
