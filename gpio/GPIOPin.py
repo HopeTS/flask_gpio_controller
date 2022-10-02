@@ -13,7 +13,6 @@ class GPIOPin:
         ''' Pin TYPE (Refer to J8 header) '''
         self.state = 0
         ''' Pin HIGH/LOW state '''
-        number = sum(number, 0)
         self.number = number
         ''' Pin NUMBER (Refer to J8 header) '''
 
