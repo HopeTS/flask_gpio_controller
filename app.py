@@ -44,9 +44,9 @@ def blink():
     ''' Make pin blink '''
 
     # Get values
-    pin = int(request.args.get("pin")) or 32
-    duration = float(request.args.get("duration")) or 2.0
-    interval = float(request.args.get("interval")) or 0.1
+    pin = int(request.args.get("pin") or 32)
+    duration = float(request.args.get("duration") or 2.0)
+    interval = float(request.args.get("interval") or 0.1)
 
     # Blink
     time_left = duration
