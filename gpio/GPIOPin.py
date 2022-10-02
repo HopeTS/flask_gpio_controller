@@ -31,11 +31,10 @@ class GPIOPin:
         '''
 
         name = self.name.join()
-        number = self.number.join()
 
         return {
             "name": name,
-            "number": number,
+            "number": self.number,
             "type": self.type,
             "state": self.state
         }
