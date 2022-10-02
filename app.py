@@ -40,19 +40,13 @@ def get_pin_info():
 
 
 @app.route("/blink", methods=['POST'])
-def blink(request):
+def blink():
     ''' Make pin blink '''
 
-    # Validate request
-    if not request.body:
-        return abort(400)
-    elif not request.body.pin:
-        return abort(400)
-
     # Get values
-    pin = int(request.body.pin) or 32
-    duration = float(request.body.duration) or 2.0
-    interval = float(request.body.interval) or 0.1
+    pin = int(request.args.get(pin)) or 32
+    duration = float(request.args.get(duration)) or 2.0
+    interval = float(request.args.get(interval)) or 0.1
 
     # Blink
     time_left = duration
