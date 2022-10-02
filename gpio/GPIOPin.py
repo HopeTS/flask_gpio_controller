@@ -7,7 +7,7 @@ class GPIOPin:
     '''
 
     def __init__(self, name: str, number: int):
-        self.name = name,
+        self.name = name
         ''' Pin NAME  (Refer to J8 header) '''
         self.number = number,
         ''' Pin NUMBER (Refer to J8 header) '''
@@ -30,7 +30,7 @@ class GPIOPin:
             Serialize pin data
         '''
 
-        name = self.name.join()
+        name = "".join(self.name)
 
         return {
             "name": name,
