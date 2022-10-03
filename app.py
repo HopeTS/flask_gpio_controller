@@ -69,7 +69,8 @@ def toggle_pin():
 
     try:
         # Get values
-        pin = int(request.args.get("pin"))
+        request_data = request.get_json(True)
+        pin = request_data['pin']
 
         # Toggle pin
         global gpio_controller
