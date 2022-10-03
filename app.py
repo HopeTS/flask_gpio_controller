@@ -67,15 +67,11 @@ def blink():
 def toggle_pin():
     ''' Toggle a pin (LOW to HIGH or HIGH to LOW) '''
 
-    # Get values
-    pin = int(request.args.get("pin")) or -1
-
-    # Validate
-    if (pin == -1):
-        return abort(400)
-
-    # Toggle pin
     try:
+        # Get values
+        pin = int(request.args.get("pin"))
+
+        # Toggle pin
         global gpio_controller
         gpio_controller.toggle_pin(pin)
     except:
