@@ -63,7 +63,7 @@ def blink():
     return {}, 200
 
 
-@app.route("/toggle-pin")
+@app.route("/toggle-pin", methods=['POST'])
 def toggle_pin():
     ''' Toggle a pin (LOW to HIGH or HIGH to LOW) '''
 
