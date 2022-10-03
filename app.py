@@ -44,9 +44,13 @@ def blink():
     ''' Make pin blink '''
 
     # Get values
-    pin = int(request.args.get("pin") or 32)
+    pin = int(request.args.get("pin") or -1)
     duration = float(request.args.get("duration") or 2.0)
     interval = float(request.args.get("interval") or 0.1)
+
+    # Validate
+    if (pin < 1 or pin > 40):
+        return abort(400)
 
     # Blink
     time_left = duration
@@ -59,30 +63,52 @@ def blink():
     return {}, 200
 
 
+@app.route("/toggle-pin")
+def toggle_pin():
+    ''' Toggle a pin (LOW to HIGH or HIGH to LOW) '''
+
+    # Get values
+    pin = int(request.args.get("pin")) or -1
+
+    # Validate
+    if (pin == -1):
+        return abort(400)
+
+    # Toggle pin
+    try:
+        global gpio_controller
+        gpio_controller.toggle_pin(pin)
+    except:
+        return abort(400)
+
+    return {}, 200
+
+
 @app.route("/custom-loop", methods=['POST'])
-def custom_loop(request):
+def custom_loop():
     # TODO
     return {}, 200
 
 
 @app.route("/update-pin-voltage", methods=['POST'])
-def update_pin_voltage(request):
+def update_pin_voltage():
     ''' Activate or deactivate a pin '''
 
     # Validate request
-    if not request.body:
-        return abort(400)
-    elif not request.body.number:
-        return abort(400)
-    elif not request.body.state:
+
+    # Get variable data
+    pin = int(request.args.get("pin") or -1)
+    state = request.args.get("state") or -1
+
+    if (pin == -1 or state == -1):
         return abort(400)
 
     # Activate / deactivate pin
     try:
         if (request.body.state == "HIGH"):
-            gpio_controller.pins[request.body.number].activate()
+            gpio_controller.pins[pin].activate()
         elif (request.body.state == "LOW"):
-            gpio_controller.pins[request.body.number].deactivate()
+            gpio_controller.pins[pin].deactivate()
         else:
             raise
     except:
