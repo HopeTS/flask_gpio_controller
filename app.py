@@ -43,24 +43,28 @@ def get_pin_info():
 def blink():
     ''' Make pin blink '''
 
-    # Get values
-    pin = int(request.args.get("pin") or -1)
-    duration = float(request.args.get("duration") or 2.0)
-    interval = float(request.args.get("interval") or 0.1)
+    try:
+        # Get values
+        request_data = request.get_json(True)
+        pin = int(request_data['pin'])
+        duration = float(request_data['duration'] or 2.0)
+        interval = float(request_data['interval'] or 0.1)
 
-    # Validate
-    if (pin < 1 or pin > 40):
+        # Validate
+        if (pin < 1 or pin > 40):
+            return abort(400)
+
+        # Blink
+        time_left = duration
+        while (time_left >= 0):
+            global gpio_controller
+            gpio_controller.toggle_pin(pin)
+            sleep(interval)
+            time_left -= interval
+
+        return {}, 200
+    except:
         return abort(400)
-
-    # Blink
-    time_left = duration
-    while (time_left >= 0):
-        global gpio_controller
-        gpio_controller.toggle_pin(pin)
-        sleep(interval)
-        time_left -= interval
-
-    return {}, 200
 
 
 @app.route("/toggle-pin", methods=['POST'])
@@ -75,10 +79,10 @@ def toggle_pin():
         # Toggle pin
         global gpio_controller
         gpio_controller.toggle_pin(pin)
+
+        return {}, 200
     except:
         return abort(400)
-
-    return {}, 200
 
 
 @app.route("/custom-loop", methods=['POST'])
