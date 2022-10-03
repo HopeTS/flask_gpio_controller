@@ -97,8 +97,8 @@ def update_pin_voltage():
     # Validate request
 
     # Get variable data
-    pin = int(request.args.get("pin") or -1)
-    state = request.args.get("state") or -1
+    pin = int(request.form.get("pin") or -1)
+    state = request.form.get("state") or -1
 
     if (pin == -1 or state == -1):
         return abort(400)
