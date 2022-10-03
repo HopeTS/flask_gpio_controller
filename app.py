@@ -90,20 +90,15 @@ def custom_loop():
 def update_pin_voltage():
     ''' Activate or deactivate a pin '''
 
-    # Validate request
-
-    # Get variable data
-    pin = int(request.form.get("pin") or -1)
-    state = request.form.get("state") or -1
-
-    if (pin == -1 or state == -1):
-        return abort(400)
-
-    # Activate / deactivate pin
     try:
-        if (request.body.state == "HIGH"):
+        # Get variable data
+        pin = int(request.form.get("pin"))
+        state = request.form.get("state")
+
+        # Activate / deactivate pin
+        if (state == "HIGH"):
             gpio_controller.pins[pin].activate()
-        elif (request.body.state == "LOW"):
+        elif (state == "LOW"):
             gpio_controller.pins[pin].deactivate()
         else:
             raise
