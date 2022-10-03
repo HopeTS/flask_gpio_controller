@@ -92,8 +92,10 @@ def update_pin_voltage():
 
     try:
         # Get variable data
-        pin = int(request.form.get("pin"))
-        state = request.form.get("state")
+        request_data = request.get_json()
+
+        pin = int(request_data['pin'])
+        state = request_data['state']
 
         # Activate / deactivate pin
         if (state == "HIGH"):
