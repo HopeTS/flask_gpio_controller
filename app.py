@@ -92,7 +92,7 @@ def update_pin_voltage():
 
     try:
         # Get variable data
-        request_data = request.get_json()
+        request_data = request.get_json(True)
 
         pin = int(request_data['pin'])
         state = request_data['state']
