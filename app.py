@@ -1,13 +1,45 @@
-from tokenize import Double
 from flask import Flask, Response, abort, jsonify, request
 from flask_cors import CORS, cross_origin
+from flask_socketio import SocketIO
 from time import sleep
+from dotenv import load_dotenv, dotenv_values
 
 from gpio.GPIOController import GPIOController
 
-# Configure Flask server
+
+'''
+    Setup
+'''
+
+load_dotenv()
+
+# Configure Flask app
+global app
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'secret'
 CORS(app, resources={r"/*": {"origins": "*"}})
+
+# Configure websocket
+global socketio
+socketio = SocketIO(app)
+
+# Set up GPIO Controller
+gpio_controller = GPIOController()
+
+
+'''
+    GPIO / Websocket interface
+'''
+
+
+'''
+    Websocket routes
+'''
+
+
+'''
+    Static routes
+'''
 
 
 @app.route("/")
@@ -18,15 +50,14 @@ def index():
 
 @app.route("/ping")
 def ping():
-    ''' Test connection '''
+    ''' Connection test (4 second long poll) '''
+    sleep(3)
     return {}, 200
 
 
 @app.route("/get-pin-info")
 def get_pin_info():
     ''' Retrieve full state of GPIO '''
-
-    global gpio_controller
 
     # get serialized pin data
     pin_data = []
@@ -117,9 +148,6 @@ def update_pin_voltage():
 
 if __name__ == "__main__":
 
-    # Set up GPIO Controller
-    global gpio_controller
-    gpio_controller = GPIOController()
-
     # Run
-    app.run(debug=True, host="0.0.0.0")
+    socketio.run(app)
+    # app.run(debug=True, host="0.0.0.0")
