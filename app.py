@@ -1,6 +1,6 @@
 from flask import Flask, Response, abort, jsonify, request
 from flask_cors import CORS, cross_origin
-from flask_socketio import SocketIO
+from flask_socketio import SocketIO, send, emit
 from time import sleep
 from dotenv import load_dotenv, dotenv_values
 
@@ -16,7 +16,7 @@ load_dotenv()
 # Configure Flask app
 global app
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'secret'
+app.config['SECRET_KEY'] = dotenv_values['SECRET_KEY']
 CORS(app, resources={r"/*": {"origins": "*"}})
 
 # Configure websocket
@@ -51,7 +51,7 @@ def get_gpio(ws):
 def gpio_update(ws):
     global gpio_controller
     data = (gpio_controller.jsonify())
-    return {"body": data}
+    send(data, json=True)
 
 
 '''
@@ -67,12 +67,11 @@ def index():
 
 @app.route("/ping")
 def ping():
-    ''' Connection test (4 second long poll) '''
-    sleep(3)
+    ''' Connection test '''
     return {}, 200
 
 
-@app.route("/get-pin-info")
+@app.route("/get-gpio")
 def get_pin_info():
     ''' Retrieve full state of GPIO '''
 
