@@ -21,7 +21,7 @@ config = dotenv_values(".env")
 global app
 app = Flask(__name__)
 app.config['SECRET_KEY'] = config['SECRET_KEY']
-CORS(app, resources={r"/*": {"origins": "*"}})
+#CORS(app, resources={r"/*": {"origins": "*"}})
 
 # Configure websocket
 global socketio
