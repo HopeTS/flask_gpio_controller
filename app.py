@@ -164,6 +164,18 @@ def update_pin_voltage():
 
 if __name__ == "__main__":
 
-    # Run
-    socketio.run(app)
-    app.run(debug=True, host="0.0.0.0")
+    try:
+        # Validate environment variables
+        if not dotenv_values['SECRET_KEY']:
+            raise
+        elif not dotenv_values['WS_PORT']:
+            raise
+        elif not dotenv_values['HTTP_PORT']:
+            raise
+
+        # Run
+        socketio.run(app, )
+        app.run(debug=True, host="0.0.0.0")
+
+    except:
+        print("Something went wrong")
