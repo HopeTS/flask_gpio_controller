@@ -64,7 +64,7 @@ def gpio_update(ws):
 '''
 
 
-@app.route("/")
+""" @app.route("/")
 def index():
     ''' Home page '''
     return "<p>This is the server for Raspi 3 Model B GPIO controller</p>"
@@ -164,7 +164,7 @@ def update_pin_voltage():
     except:
         return abort(400)
 
-    return "<p>Pin updated</p>"
+    return "<p>Pin updated</p>" """
 
 
 if __name__ == "__main__":
