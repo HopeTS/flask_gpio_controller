@@ -11,12 +11,16 @@ from gpio.GPIOController import GPIOController
     Setup
 '''
 
+# Set up config
 load_dotenv()
+global config
+config = dotenv_values(".env")
+
 
 # Configure Flask app
 global app
 app = Flask(__name__)
-app.config['SECRET_KEY'] = dotenv_values('SECRET_KEY')
+app.config['SECRET_KEY'] = config['SECRET_KEY']
 CORS(app, resources={r"/*": {"origins": "*"}})
 
 # Configure websocket
@@ -166,13 +170,13 @@ if __name__ == "__main__":
 
     try:
         # Validate environment variables
-        if not dotenv_values('SECRET_KEY'):
+        if not config['SECRET_KEY']:
             print("No secret key")
             raise
-        elif not dotenv_values('WS_PORT'):
+        elif not config['WS_PORT']:
             print("No ws port")
             raise
-        elif not dotenv_values('HTTP_PORT'):
+        elif not config['HTTP_PORT']:
             print("No http port")
             raise
 
