@@ -167,10 +167,13 @@ if __name__ == "__main__":
     try:
         # Validate environment variables
         if not dotenv_values('SECRET_KEY'):
+            print("No secret key")
             raise
         elif not dotenv_values('WS_PORT'):
+            print("No ws port")
             raise
         elif not dotenv_values('HTTP_PORT'):
+            print("No http port")
             raise
 
         # Run
