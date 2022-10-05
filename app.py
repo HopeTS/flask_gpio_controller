@@ -16,7 +16,7 @@ load_dotenv()
 # Configure Flask app
 global app
 app = Flask(__name__)
-app.config['SECRET_KEY'] = dotenv_values['SECRET_KEY']
+app.config['SECRET_KEY'] = dotenv_values('SECRET_KEY')
 CORS(app, resources={r"/*": {"origins": "*"}})
 
 # Configure websocket
@@ -166,11 +166,11 @@ if __name__ == "__main__":
 
     try:
         # Validate environment variables
-        if not dotenv_values['SECRET_KEY']:
+        if not dotenv_values('SECRET_KEY'):
             raise
-        elif not dotenv_values['WS_PORT']:
+        elif not dotenv_values('WS_PORT'):
             raise
-        elif not dotenv_values['HTTP_PORT']:
+        elif not dotenv_values('HTTP_PORT'):
             raise
 
         # Run
