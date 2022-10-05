@@ -24,17 +24,34 @@ global socketio
 socketio = SocketIO(app)
 
 # Set up GPIO Controller
-gpio_controller = GPIOController()
-
-
-'''
-    GPIO / Websocket interface
-'''
+global gpio_controller
+gpio_controller = GPIOController(socketio)
 
 
 '''
     Websocket routes
 '''
+
+
+@socketio.on("echo")
+def echo_socket(ws):
+    while not ws.closed:
+        message = ws.receive()
+        ws.send(message)
+
+
+@socketio.on("get-gpio")
+def get_gpio(ws):
+    global gpio_controller
+    data = (gpio_controller.jsonify())
+    return {"body": data}
+
+
+@socketio.on("gpio-update")
+def gpio_update(ws):
+    global gpio_controller
+    data = (gpio_controller.jsonify())
+    return {"body": data}
 
 
 '''
@@ -150,4 +167,4 @@ if __name__ == "__main__":
 
     # Run
     socketio.run(app)
-    # app.run(debug=True, host="0.0.0.0")
+    app.run(debug=True, host="0.0.0.0")
