@@ -41,6 +41,7 @@ gpio_controller = GPIOController(socketio)
 @cross_origin()
 def get_gpio():
     global gpio_controller
+    print("Get GPIO hit")
     data = (gpio_controller.jsonify())
     return {"body": data}
 
