@@ -181,8 +181,8 @@ if __name__ == "__main__":
             raise
 
         # Run
-        socketio.run(app, dotenv_values('WS_PORT'))
-        app.run(debug=True, host="0.0.0.0")
+        socketio.run(app, config['WS_PORT'])
+        app.run(debug=True, port=config['HTTP_PORT'], host="0.0.0.0")
 
     except:
         print("Something went wrong")
