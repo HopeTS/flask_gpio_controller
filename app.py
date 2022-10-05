@@ -174,7 +174,7 @@ if __name__ == "__main__":
             raise
 
         # Run
-        socketio.run(app, )
+        socketio.run(app, dotenv_values('WS_PORT'))
         app.run(debug=True, host="0.0.0.0")
 
     except:
