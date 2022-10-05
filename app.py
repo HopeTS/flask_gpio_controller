@@ -37,17 +37,9 @@ gpio_controller = GPIOController(socketio)
 '''
 
 
-@socketio.on("echo")
-@cross_origin()
-def echo_socket(ws):
-    while not ws.closed:
-        message = ws.receive()
-        ws.send(message)
-
-
 @socketio.on("get-gpio")
 @cross_origin()
-def get_gpio(ws):
+def get_gpio():
     global gpio_controller
     data = (gpio_controller.jsonify())
     return {"body": data}
@@ -55,7 +47,7 @@ def get_gpio(ws):
 
 @socketio.on("gpio-update")
 @cross_origin()
-def gpio_update(ws):
+def gpio_update():
     global gpio_controller
     data = (gpio_controller.jsonify())
     send(data, json=True)
