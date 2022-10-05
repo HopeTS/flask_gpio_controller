@@ -26,7 +26,6 @@ CORS(app, resources={r"/*": {"origins": "*"}})
 # Configure websocket
 global socketio
 socketio = SocketIO(app, cors_allowed_origins='*')
-socketio.init_app(app, cross_origin=True)
 
 # Set up GPIO Controller
 global gpio_controller
