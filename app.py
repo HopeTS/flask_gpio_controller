@@ -181,7 +181,7 @@ if __name__ == "__main__":
             raise
 
         # Run
-        socketio.run(app, config['WS_PORT'])
+        socketio.run(app=app, host='0.0.0.0', port=config['WS_PORT'])
         #app.run(debug=True, port=config['HTTP_PORT'], host="0.0.0.0")
 
     except:
