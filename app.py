@@ -54,6 +54,15 @@ def gpio_update():
     send(data, json=True)
 
 
+@socketio.on("message")
+@cross_origin()
+def message():
+    print("Message received!")
+    global gpio_controller
+    data = (gpio_controller.jsonify())
+    socketio.send(data, json=True)
+
+
 '''
     Static routes
 '''
