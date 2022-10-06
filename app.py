@@ -56,8 +56,9 @@ def gpio_update():
 
 @socketio.on("message")
 @cross_origin()
-def message():
+def message(incData):
     print("Message received!")
+    print(incData)
     global gpio_controller
     data = (gpio_controller.jsonify())
     socketio.send(data, json=True)
