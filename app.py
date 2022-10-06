@@ -43,6 +43,7 @@ def get_gpio():
     global gpio_controller
     print("Get GPIO hit")
     data = (gpio_controller.jsonify())
+    print("Here is returned data", data)
     return jsonify(data)
 
 
