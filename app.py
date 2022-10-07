@@ -54,7 +54,7 @@ def gpio_update():
     print('gpio update')
     global gpio_controller
     data = (gpio_controller.jsonify())
-    send(data, json=True)
+    emit("gpio-update", data, json=True)
 
 
 @socketio.on("message")
