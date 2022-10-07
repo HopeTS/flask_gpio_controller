@@ -66,6 +66,15 @@ def message(incData):
     socketio.send(data, json=True)
 
 
+@socketio.on('toggle-pin')
+@cross_origin()
+def toggle_pin(incData):
+    print("Toggle pin received", incData)
+    global gpio_controller
+    gpio_controller.toggle_pin(incData['number'])
+    socketio.emit("gpio-update")
+
+
 '''
     Static routes
 '''
