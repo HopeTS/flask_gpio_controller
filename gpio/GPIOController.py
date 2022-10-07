@@ -20,7 +20,7 @@ class GPIOController:
 
     def emit(self):
         ''' Emit changes through websocket '''
-        self.socketio.emit("gpio-update")
+        self.socketio.emit("gpio-update", {"data": self.jsonify()})
         return
 
     def jsonify(self):
@@ -37,7 +37,7 @@ class GPIOController:
             return False
 
         self.pins[pin_number].toggle()
-        self.emit("gpio-update")
+        self.emit()
         return True
 
     def reset(self):
