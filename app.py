@@ -38,15 +38,6 @@ gpio_controller = GPIOController(socketio)
 '''
 
 
-@socketio.on("connect")
-@cross_origin
-def connect():
-    global socketio
-    global gpio_controller
-
-    socketio.emit("gpio-update", {"data": gpio_controller.jsonify()})
-
-
 @socketio.on("get-gpio")
 @cross_origin()
 def get_gpio():
