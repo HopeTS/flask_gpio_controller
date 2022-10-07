@@ -37,7 +37,7 @@ class GPIOController:
             return False
 
         self.pins[pin_number].toggle()
-        self.emit()
+        self.emit("gpio-update")
         return True
 
     def reset(self):

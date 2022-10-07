@@ -3,6 +3,7 @@ from flask_cors import CORS, cross_origin
 from flask_socketio import SocketIO, send, emit
 from time import sleep
 from dotenv import load_dotenv, dotenv_values
+import json
 
 from gpio.GPIOController import GPIOController
 
@@ -70,8 +71,9 @@ def message(incData):
 @cross_origin()
 def toggle_pin(incData):
     print("Toggle pin received", incData)
+    data = json.loads(incData)
     global gpio_controller
-    gpio_controller.toggle_pin(incData['number'])
+    gpio_controller.toggle_pin(data['number'])
     socketio.emit("gpio-update")
 
 
