@@ -71,9 +71,9 @@ def message(incData):
 @cross_origin()
 def toggle_pin(incData):
     print("Toggle pin received", incData)
-    data = json.loads(incData)
+    print("number specifically", incData['number'])
     global gpio_controller
-    gpio_controller.toggle_pin(data['number'])
+    gpio_controller.toggle_pin(incData['number'])
     socketio.emit("gpio-update")
 
 
