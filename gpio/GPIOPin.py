@@ -1,5 +1,4 @@
 import RPi.GPIO as GPIO
-from socket import SocketIO
 
 
 class GPIOPin:
@@ -7,7 +6,7 @@ class GPIOPin:
         Store data about a GPIO pin
     '''
 
-    def __init__(self, name: str, number: int, type: str, socket: SocketIO):
+    def __init__(self, name: str, number: int, type: str):
         self.name: str = "".join(name)
         ''' Pin NAME  (Refer to J8 header) '''
         self.type: str = "".join(type)
@@ -16,8 +15,6 @@ class GPIOPin:
         ''' Pin HIGH/LOW state '''
         self.number = number
         ''' Pin NUMBER (Refer to J8 header) '''
-        self.socket = socket
-        ''' Websocket'''
 
         try:
             # Set up pin based on type:
@@ -50,7 +47,7 @@ class GPIOPin:
         # Activate
         GPIO.output(self.number, GPIO.HIGH)
         self.state = 1
-        self.socket.send("Board should change")
+        print("Pin activated", self.number)
         return
 
     def deactivate(self):
@@ -63,7 +60,7 @@ class GPIOPin:
         # Activate
         GPIO.output(self.number, GPIO.LOW)
         self.state = 0
-        self.socket.send("board should change")
+        print("Pin deactivated", self.number)
         return
 
     def reset(self):
