@@ -45,7 +45,8 @@ def get_gpio():
     print("Get GPIO hit")
     data = (gpio_controller.jsonify())
     print("Here is returned data", data)
-    send(jsonify(data), json=True)
+    #     send(jsonify(data), json=True)
+    return emit("gpio-update", {"data": jsonify(data)})
 
 
 @socketio.on("gpio-update")
