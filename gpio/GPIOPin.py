@@ -18,11 +18,11 @@ class GPIOPin:
 
         try:
             # Set up pin based on type:
-            if not self.type == "Power" or not self.type == "Ground":
+            if not self.type == "Power" and not self.type == "Ground":
                 GPIO.setup(self.number, GPIO.OUT, initial=GPIO.LOW)
 
             # Power pin is always on
-            if self.type == "Power":
+            if self.type is "Power":
                 self.state = 1
 
         except:
