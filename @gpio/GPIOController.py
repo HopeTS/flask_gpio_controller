@@ -13,7 +13,8 @@ class GPIOController:
 
         # Setup GPIO board
         setup_gpio()
-        self.pins = create_pins_dict()
+        pin_data = create_pins_dict()
+        self.pins = pin_data
         self.socketio = socketio
         return
 
