@@ -63,7 +63,7 @@ def message(incData):
     print("Message received!", incData)
     global gpio_controller
     data = (gpio_controller.jsonify())
-    socketio.send(data, json=True)
+    send(data, json=True)
 
 
 @socketio.on('toggle-pin')
