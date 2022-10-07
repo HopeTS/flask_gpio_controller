@@ -60,8 +60,7 @@ def gpio_update():
 @socketio.on("message")
 @cross_origin()
 def message(incData):
-    print("Message received!")
-    print(incData)
+    print("Message received!", incData)
     global gpio_controller
     data = (gpio_controller.jsonify())
     socketio.send(data, json=True)
@@ -70,11 +69,8 @@ def message(incData):
 @socketio.on('toggle-pin')
 @cross_origin()
 def toggle_pin(incData):
-    print("Toggle pin received", incData)
-    print("number specifically", incData['number'])
     global gpio_controller
     gpio_controller.toggle_pin(incData['number'])
-    socketio.emit("gpio-update")
 
 
 '''
