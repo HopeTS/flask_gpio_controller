@@ -17,7 +17,7 @@ class GPIOPin:
         ''' Pin NUMBER (Refer to J8 header) '''
 
         # Set up pin based on type:
-        if self.type is "Power":
+        if self.type == "Power":
             self.state = 1
         try:
             if not self.type == "Power" and not self.type == "Ground":
