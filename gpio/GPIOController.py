@@ -1,5 +1,6 @@
 import json
 from socket import SocketIO
+from flask_socketio import send, emit
 
 from gpio.GPIOPin import GPIOPin
 from gpio.utils.create_pins_dict import create_pins_dict
@@ -20,7 +21,7 @@ class GPIOController:
 
     def emit(self):
         ''' Emit changes through websocket '''
-        self.socketio.emit("gpio-update", {"data": self.jsonify()})
+        emit("gpio-update", {"data": self.jsonify()})
         return
 
     def jsonify(self):
