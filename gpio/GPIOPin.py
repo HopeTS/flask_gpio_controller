@@ -16,15 +16,12 @@ class GPIOPin:
         self.number = number
         ''' Pin NUMBER (Refer to J8 header) '''
 
+        # Set up pin based on type:
+        if self.type is "Power":
+            self.state = 1
         try:
-            # Set up pin based on type:
             if not self.type == "Power" and not self.type == "Ground":
                 GPIO.setup(self.number, GPIO.OUT, initial=GPIO.LOW)
-
-            # Power pin is always on
-            if self.type is "Power":
-                self.state = 1
-
         except:
             print("Pin", self.number, "is not GPIO")
         return
